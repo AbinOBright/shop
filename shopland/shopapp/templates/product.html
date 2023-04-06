@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+        {{product.description|truncatewords:155}}
+
+{% endblock %}
+
+{% block title %}
+    {% if category %}
+
+        {{product.name}} - ShopLand
+
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="mx_auto">
+        <p> <a href="{% url 'shopapp:allProdCat' %}">Home</a> | <a href="{{product.category.get_url}}">{{product.category}}</a>|{{product.name}}</p>
+    </div>
+        <div class="container">
+<br>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div style="min-width:18rem">
+            <img src="{{product.image.url}}" alt="{{product.name}}">
+        </div>
+    </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                    <div>
+                    <h4 class="my_prod_title">{{product.name}}</h4>
+                    <p>${{product.price}}</p>
+                    <h6 class="my_title"><b> product Description </b></h6>
+                    <p class="text-justify my_prod_text">{{product.description}}</p>
+                    {% if product.stoke <= 0 %}
+                    <h3 class="text-justify my_prod_text"><b>Out of Stoke</b></h3>
+                    {% else %}
+                    <a class="but btn-secondary" href="{% url 'cart:add_cart' product.id %}">Add Cart</a>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
